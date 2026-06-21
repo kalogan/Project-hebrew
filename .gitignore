@@ -9,3 +9,6 @@ coverage
 
 # Local agent worktrees
 .claude/worktrees/
+
+# Vercel CLI local link
+.vercel
