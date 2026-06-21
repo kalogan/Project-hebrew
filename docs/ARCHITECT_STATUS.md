@@ -3,7 +3,7 @@
 Durable project memory for the Architect–Builder Pipeline. Update every slice so
 a fresh context can resume cold.
 
-_Last updated: 2026-06-21 — dataset expanded to 100 words (builder slice, independently verified), gate green._
+_Last updated: 2026-06-21 — parallel wave shipped: tabbed shell + Stats dashboard + Settings panel + real PWA icons. Deploy pivoted from GitHub Pages → Vercel (Git integration; awaiting Director connect). Gate green, 48 tests._
 
 ## Locked design (from the Director grill)
 
@@ -27,7 +27,7 @@ _Last updated: 2026-06-21 — dataset expanded to 100 words (builder slice, inde
 ## The gate (`pnpm gate`) — last known green
 
 `typecheck=0 lint=0 guard=0 content=0 test=0 build=0`
-**Tests: 35 passed across 5 files.** Dataset: 100 words valid.
+**Tests: 48 passed across 8 files.** Dataset: 100 words valid.
 _(A drop in these counts with everything "green" means tests/words were removed, not passing — investigate.)_
 
 ## Slices
@@ -39,12 +39,15 @@ _(A drop in these counts with everything "green" means tests/words were removed,
 - **S1a/b — Dataset, 100 words** — curated (85 content + 15 particles), popular `ch`/`tz` translit. Builder slice `315774e`, independently re-gated by Architect. ✅ green ⚠️ _accuracy review pending (see queue)_
 - **S2a — Audio seam** — `AudioProvider` + Web Speech `he-IL`. ✅ green
 - **S3a — MVP review UI** — flashcard, rating bar, translit toggle, session flow + tests. ✅ green
+- **S3b — Tabbed shell** — Learn/Stats/Settings nav; review loop extracted to `LearnView`. ✅ green
+- **S4 — Stats dashboard** — pure `deckStats(cards, now)` helper (new/learning/review/due/mature/young/reps/lapses/avg-ease) + `StatsView`. ✅ green
+- **S5 — Settings panel** — transliteration, new-cards/day (0–50), pronunciation (Sephardi/Ashkenazi), audio status. ✅ green
+- **S6 — PWA icons** — real 192/512/maskable/apple-touch PNGs, manifest + apple-touch link. ✅ green
+- **CI/Deploy** — standalone CI gate workflow; `vercel.json` for Vercel Git integration (preview per push/PR). ⏳ awaiting Director's one-time Vercel connect.
 
-### Queued (next fan-out — disjoint surfaces)
-- **S4 — Dashboard / progress** — surface: `src/ui/dashboard/**` + `src/app/`. Streak, due counts, deck overview.
-- **S5 — Settings screen** — pronunciation, new-cards/day, reset. surface: `src/ui/settings/**`.
-- **S6 — PWA polish** — real app icons (192/512 png), offline verification. surface: `public/**`, `vite.config.ts`.
+### Queued
 - **S2b — Recorded audio (later)** — swap Web Speech for human clips behind the existing seam.
+- **S7 — Streak/history (later)** — persisted daily review streak (needs schema v2 + migration + golden fixture).
 
 ## Review queue (needs Director taste — non-blocking)
 
