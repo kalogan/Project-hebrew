@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Learn the 100 most frequent Hebrew prayer-book words via spaced repetition.",
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
