@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useDeck } from './useDeck';
-import { Flashcard } from '../ui/Flashcard';
-import { RatingBar } from '../ui/RatingBar';
+import { LearnView } from '../ui/LearnView';
+import { StatsView } from '../ui/StatsView';
+import { SettingsView } from '../ui/SettingsView';
 import { createSpeechSynthesisProvider } from '../audio/speechSynthesisProvider';
-import { getWord } from '../data/words';
-import type { Rating } from '../core/srs/types';
 import type { KeyValueStore } from '../core/store/store';
 
 interface AppProps {
@@ -12,22 +11,18 @@ interface AppProps {
   store: KeyValueStore;
 }
 
+type Tab = 'learn' | 'stats' | 'settings';
+
+const TABS: ReadonlyArray<{ id: Tab; label: string }> = [
+  { id: 'learn', label: 'Learn' },
+  { id: 'stats', label: 'Stats' },
+  { id: 'settings', label: 'Settings' },
+];
+
 export function App({ store }: AppProps) {
   const audio = useMemo(() => createSpeechSynthesisProvider(), []);
   const deck = useDeck(store);
-  const [revealed, setRevealed] = useState(false);
-
-  const word = deck.currentId ? getWord(deck.currentId) : undefined;
-
-  function handleRate(rating: Rating) {
-    setRevealed(false);
-    deck.rate(rating);
-  }
-
-  function handleRestart() {
-    setRevealed(false);
-    deck.startSession();
-  }
+  const [tab, setTab] = useState<Tab>('learn');
 
   return (
     <div className="app">
@@ -36,42 +31,23 @@ export function App({ store }: AppProps) {
         <p className="app__subtitle">The prayer book, one word at a time</p>
       </header>
 
-      <main className="app__main">
-        {word ? (
-          <>
-            <div className="app__progress">{deck.remaining} left in this session</div>
-            <Flashcard
-              key={word.id}
-              word={word}
-              revealed={revealed}
-              showTransliteration={deck.settings.showTransliteration}
-              audioAvailable={audio.isAvailable()}
-              onReveal={() => setRevealed(true)}
-              onSpeak={() => audio.speak(word.hebrew)}
-            />
-            {revealed && <RatingBar onRate={handleRate} />}
-          </>
-        ) : (
-          <div className="app__done">
-            <p className="app__done-title">🎉 Session complete</p>
-            <p>{deck.due} cards due for review.</p>
-            <button type="button" className="app__restart" onClick={handleRestart}>
-              Start another session
-            </button>
-          </div>
-        )}
-      </main>
+      {tab === 'learn' && <LearnView deck={deck} audio={audio} />}
+      {tab === 'stats' && <StatsView deck={deck} />}
+      {tab === 'settings' && <SettingsView deck={deck} audioAvailable={audio.isAvailable()} />}
 
-      <footer className="app__footer">
-        <label className="app__toggle">
-          <input
-            type="checkbox"
-            checked={deck.settings.showTransliteration}
-            onChange={(e) => deck.updateSettings({ showTransliteration: e.target.checked })}
-          />
-          Show transliteration
-        </label>
-      </footer>
+      <nav className="nav" aria-label="Sections">
+        {TABS.map(({ id, label }) => (
+          <button
+            key={id}
+            type="button"
+            className={tab === id ? 'nav__btn nav__btn--active' : 'nav__btn'}
+            aria-current={tab === id ? 'page' : undefined}
+            onClick={() => setTab(id)}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
     </div>
   );
 }
