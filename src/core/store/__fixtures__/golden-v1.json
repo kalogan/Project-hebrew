@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "cards": {
+    "barukh": {
+      "ease": 2.5,
+      "intervalDays": 4,
+      "step": -1,
+      "reps": 2,
+      "lapses": 0,
+      "due": 1700345600000,
+      "lastReviewed": 1700000000000,
+      "phase": "review"
+    },
+    "atah": {
+      "ease": 2.3,
+      "intervalDays": 0,
+      "step": 0,
+      "reps": 0,
+      "lapses": 1,
+      "due": 1700000060000,
+      "lastReviewed": 1700000000000,
+      "phase": "learning"
+    }
+  },
+  "settings": {
+    "showTransliteration": true,
+    "newCardsPerDay": 10,
+    "pronunciation": "sephardi"
+  },
+  "createdAt": 1699990000000,
+  "updatedAt": 1700000000000
+}
