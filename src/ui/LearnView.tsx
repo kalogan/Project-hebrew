@@ -9,10 +9,12 @@ import type { AudioProvider } from '../audio/provider';
 interface LearnViewProps {
   deck: DeckApi;
   audio: AudioProvider;
+  /** Whether a Hebrew voice is actually available (drives the Listen control). */
+  audioAvailable: boolean;
 }
 
 /** The review loop: one card at a time, reveal, then rate. */
-export function LearnView({ deck, audio }: LearnViewProps) {
+export function LearnView({ deck, audio, audioAvailable }: LearnViewProps) {
   const [revealed, setRevealed] = useState(false);
   const word = deck.currentId ? getWord(deck.currentId) : undefined;
 
@@ -37,7 +39,7 @@ export function LearnView({ deck, audio }: LearnViewProps) {
               word={word}
               revealed={revealed}
               showTransliteration={deck.settings.showTransliteration}
-              audioAvailable={audio.isAvailable()}
+              audioAvailable={audioAvailable}
               onReveal={() => setRevealed(true)}
               onSpeak={() => audio.speak(word.hebrew)}
             />

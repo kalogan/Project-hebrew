@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useDeck } from './useDeck';
+import { useAudio } from './useAudio';
 import { LearnView } from '../ui/LearnView';
 import { StatsView } from '../ui/StatsView';
 import { SettingsView } from '../ui/SettingsView';
-import { createSpeechSynthesisProvider } from '../audio/speechSynthesisProvider';
 import type { KeyValueStore } from '../core/store/store';
 
 interface AppProps {
@@ -20,7 +20,7 @@ const TABS: ReadonlyArray<{ id: Tab; label: string }> = [
 ];
 
 export function App({ store }: AppProps) {
-  const audio = useMemo(() => createSpeechSynthesisProvider(), []);
+  const { provider: audio, hebrewVoiceAvailable } = useAudio();
   const deck = useDeck(store);
   const [tab, setTab] = useState<Tab>('learn');
 
@@ -31,9 +31,11 @@ export function App({ store }: AppProps) {
         <p className="app__subtitle">The prayer book, one word at a time</p>
       </header>
 
-      {tab === 'learn' && <LearnView deck={deck} audio={audio} />}
+      {tab === 'learn' && (
+        <LearnView deck={deck} audio={audio} audioAvailable={hebrewVoiceAvailable} />
+      )}
       {tab === 'stats' && <StatsView deck={deck} />}
-      {tab === 'settings' && <SettingsView deck={deck} audioAvailable={audio.isAvailable()} />}
+      {tab === 'settings' && <SettingsView deck={deck} audioAvailable={hebrewVoiceAvailable} />}
 
       <nav className="nav" aria-label="Sections">
         {TABS.map(({ id, label }) => (

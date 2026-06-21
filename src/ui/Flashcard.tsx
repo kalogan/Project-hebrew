@@ -30,10 +30,12 @@ export function Flashcard({
 
       {showTransliteration && <div className="card__translit">{word.translit}</div>}
 
-      {audioAvailable && (
+      {audioAvailable ? (
         <button type="button" className="card__audio" onClick={onSpeak} aria-label="Play pronunciation">
           🔊 Listen
         </button>
+      ) : (
+        <p className="card__audio-note">🔇 No Hebrew voice on this device</p>
       )}
 
       {revealed ? (
