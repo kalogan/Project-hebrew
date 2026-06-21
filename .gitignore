@@ -6,3 +6,6 @@ coverage
 .DS_Store
 .vite
 *.tsbuildinfo
+
+# Local agent worktrees
+.claude/worktrees/

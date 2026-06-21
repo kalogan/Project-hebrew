@@ -32,6 +32,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
+    // Never scan nested agent worktrees — they hold stale copies of our tests
+    // that would run against sibling stubs and break the gate.
+    exclude: ['**/node_modules/**', '**/dist/**', '.claude/**'],
     // Fail fast rather than wedge the gate on an open handle.
     testTimeout: 10_000,
     hookTimeout: 10_000,
