@@ -1,5 +1,5 @@
 [
-  { "id": "barukh", "hebrew": "בָּרוּךְ", "translit": "barukh", "gloss": "blessed", "root": "ברך", "source": "Berachah formula", "frequencyRank": 1, "partOfSpeech": "adjective" },
+  { "id": "barukh", "hebrew": "בָּרוּךְ", "translit": "baruch", "gloss": "blessed", "root": "ברך", "source": "Berachah formula", "frequencyRank": 1, "partOfSpeech": "adjective" },
   { "id": "atah", "hebrew": "אַתָּה", "translit": "atah", "gloss": "you (m. sg.)", "root": null, "source": "Berachah formula", "frequencyRank": 2, "partOfSpeech": "pronoun" },
   { "id": "adonai", "hebrew": "יְיָ", "translit": "Adonai", "gloss": "the LORD (God's name)", "root": null, "source": "Berachah formula", "frequencyRank": 3, "partOfSpeech": "noun" },
   { "id": "eloheinu", "hebrew": "אֱלֹהֵינוּ", "translit": "Eloheinu", "gloss": "our God", "root": "אלה", "source": "Berachah formula", "frequencyRank": 4, "partOfSpeech": "noun" },

@@ -9,7 +9,7 @@ describe('<App> review flow', () => {
   it('shows the first card and reveals its meaning', () => {
     render(<App store={memoryStore()} />);
     // Transliteration is on by default; first card is the highest-frequency word.
-    expect(screen.getByText('barukh')).toBeInTheDocument();
+    expect(screen.getByText('baruch')).toBeInTheDocument();
     expect(screen.queryByText('blessed')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Show meaning'));
@@ -20,15 +20,15 @@ describe('<App> review flow', () => {
     render(<App store={memoryStore()} />);
     fireEvent.click(screen.getByText('Show meaning'));
     fireEvent.click(screen.getByText('Good'));
-    // Card 1 (barukh) gone; next card revealed fresh (meaning hidden again).
-    expect(screen.queryByText('barukh')).not.toBeInTheDocument();
+    // Card 1 (baruch) gone; next card revealed fresh (meaning hidden again).
+    expect(screen.queryByText('baruch')).not.toBeInTheDocument();
     expect(screen.getByText('Show meaning')).toBeInTheDocument();
   });
 
   it('toggles transliteration off', () => {
     render(<App store={memoryStore()} />);
-    expect(screen.getByText('barukh')).toBeInTheDocument();
+    expect(screen.getByText('baruch')).toBeInTheDocument();
     fireEvent.click(screen.getByLabelText('Show transliteration'));
-    expect(screen.queryByText('barukh')).not.toBeInTheDocument();
+    expect(screen.queryByText('baruch')).not.toBeInTheDocument();
   });
 });
